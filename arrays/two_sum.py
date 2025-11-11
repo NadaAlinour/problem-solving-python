@@ -68,12 +68,15 @@ def two_sum_two_pointers(nums, target):
 # hash table method
 def two_sum_hash(nums, target):
   # create hash table with key as num and value as index
-  hash_nums = {num: idx for idx, num in enumerate(nums)}
+  # hash_nums = {num: idx for idx, num in enumerate(nums)}
+  # we should build the hashmap as we go since the above would overwrite any already existing key
+  seen = {}
   for idx, num in enumerate(nums):
     diff = target - num
-    if diff in hash_nums and idx != hash_nums[diff]:
+    if diff in seen:
+      return [idx, seen[diff]]
+    seen[num] = idx
 
-      return [idx, hash_nums[diff]]
 
 
 
@@ -81,6 +84,6 @@ nums = [2, 7, 11, 15]
 target = 9
 
 # print(two_sum_brute_force(nums, target))
-# print(two_sum_hash(nums, target))
+print(two_sum_hash(nums, target))
 # print(two_sum_with_binary_search(nums, target))
 # print(two_sum_two_pointers(nums, target))
